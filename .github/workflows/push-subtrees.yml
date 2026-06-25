@@ -24,13 +24,13 @@ jobs:
             repo: Azure-OSS/azure-storage-queue-php
             secret: DEPLOY_KEY_QUEUE
           - prefix: src/BlobFlysystem
-            repo: Azure-OSS/azure-storage-php-adapter-flysystem
+            repo: Azure-OSS/azure-storage-flysystem-php
             secret: DEPLOY_KEY_BLOB_FLYSYSTEM
           - prefix: src/BlobLaravel
-            repo: Azure-OSS/azure-storage-php-adapter-laravel
+            repo: Azure-OSS/azure-storage-laravel-php
             secret: DEPLOY_KEY_BLOB_LARAVEL
           - prefix: src/BlobSymfony
-            repo: Azure-OSS/azure-storage-php-adapter-symfony
+            repo: Azure-OSS/azure-storage-symfony-php
             secret: DEPLOY_KEY_BLOB_SYMFONY
     steps:
       - name: Checkout monorepo
