@@ -9,7 +9,6 @@ use AzureOss\Storage\Blob\BlobContainerClient;
 use AzureOss\Storage\Blob\BlobServiceClient;
 use AzureOss\Storage\Blob\Models\AcquireBlobLeaseOptions;
 use AzureOss\Storage\Blob\Models\BlobRequestConditions;
-use AzureOss\Storage\Blob\Models\BreakBlobLeaseOptions;
 use AzureOss\Storage\Blob\Models\ReleaseBlobLeaseOptions;
 use AzureOss\Storage\Common\Models\ETag;
 use GuzzleHttp\Psr7\Response;
@@ -75,7 +74,7 @@ final class BlobLeaseClientTest extends TestCase
         $leaseClient->release(new ReleaseBlobLeaseOptions(
             conditions: new BlobRequestConditions(ifUnmodifiedSince: new \DateTimeImmutable('2025-01-01 12:34:56 UTC')),
         ));
-        $brokenLease = $leaseClient->break(new BreakBlobLeaseOptions(breakPeriodSeconds: 5));
+        $brokenLease = $leaseClient->break(5);
 
         $requests = Server::received();
 

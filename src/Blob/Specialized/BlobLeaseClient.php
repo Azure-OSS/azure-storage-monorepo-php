@@ -104,18 +104,18 @@ final class BlobLeaseClient
         ])->then(fn (ResponseInterface $response): BlobLease => BlobLease::fromResponse($response, $this->leaseId));
     }
 
-    public function break(BreakBlobLeaseOptions $options = new BreakBlobLeaseOptions): BlobLease
+    public function break(?int $breakPeriodSeconds = null, BreakBlobLeaseOptions $options = new BreakBlobLeaseOptions): BlobLease
     {
         /** @phpstan-ignore-next-line */
-        return $this->breakAsync($options)->wait();
+        return $this->breakAsync($breakPeriodSeconds, $options)->wait();
     }
 
-    public function breakAsync(BreakBlobLeaseOptions $options = new BreakBlobLeaseOptions): PromiseInterface
+    public function breakAsync(?int $breakPeriodSeconds = null, BreakBlobLeaseOptions $options = new BreakBlobLeaseOptions): PromiseInterface
     {
         return $this->sendLeaseRequestAsync(array_filter([
             ...($options->conditions?->toHeaders() ?? []),
             'x-ms-lease-action' => 'break',
-            'x-ms-lease-break-period' => $options->breakPeriodSeconds,
+            'x-ms-lease-break-period' => $breakPeriodSeconds,
         ], fn ($value) => $value !== null))
             ->then(fn (ResponseInterface $response): BlobLease => BlobLease::fromResponse($response, $this->leaseId));
     }
