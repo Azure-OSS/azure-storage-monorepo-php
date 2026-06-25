@@ -255,7 +255,7 @@ final class BlobClient
             ->putAsync($this->uri, [
                 RequestOptions::HEADERS => array_filter([
                     'x-ms-blob-type' => 'BlockBlob',
-                    'Content-Length' => $content->getSize(),
+                    'Content-Length' => $content->getSize() === null ? null : (string) $content->getSize(),
                     ...$httpHeaders->toArray(),
                     ...($conditions?->toHeaders() ?? []),
                 ], fn ($value) => $value !== null),
