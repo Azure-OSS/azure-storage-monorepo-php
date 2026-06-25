@@ -34,13 +34,13 @@ jobs:
             secret: DEPLOY_KEY_BLOB_SYMFONY
     steps:
       - name: Checkout monorepo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Cache splitsh-lite
         id: cache-splitsh
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /usr/local/bin/splitsh-lite
           key: splitsh-lite-v1.0.1
