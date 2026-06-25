@@ -33,9 +33,9 @@ Azure Storage Queue PHP SDK. Provides functionality for interacting with Azure S
 
 Flysystem adapter for Azure Storage PHP. Provides integration with the [Flysystem](https://flysystem.thephpleague.com/) filesystem abstraction library.
 
-### [azure-oss/storage-blob-flysystem-symfony](https://packagist.org/packages/azure-oss/storage-blob-flysystem-symfony) ![Version](https://img.shields.io/packagist/v/azure-oss/storage-blob-flysystem-symfony) ![Total Downloads](https://img.shields.io/packagist/dt/azure-oss/storage-blob-flysystem-symfony)
+### [azure-oss/storage-blob-symfony](https://packagist.org/packages/azure-oss/storage-blob-symfony) ![Version](https://img.shields.io/packagist/v/azure-oss/storage-blob-symfony) ![Total Downloads](https://img.shields.io/packagist/dt/azure-oss/storage-blob-symfony)
 
-Symfony bridge for the Flysystem adapter. Registers an `azure_oss` adapter shortcut with [`league/flysystem-bundle`](https://packagist.org/packages/league/flysystem-bundle) 3.7+.
+Symfony bridge for the Flysystem adapter.
 
 ### [azure-oss/storage-blob-laravel](https://packagist.org/packages/azure-oss/storage-blob-laravel) ![Version](https://img.shields.io/packagist/v/azure-oss/storage-blob-laravel) ![Total Downloads](https://img.shields.io/packagist/dt/azure-oss/storage-blob-laravel)
 

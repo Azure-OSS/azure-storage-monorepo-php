@@ -1,7 +1,7 @@
 # Azure Storage Blob Flysystem bundle for Symfony
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/azure-oss/storage-blob-flysystem-symfony.svg)](https://packagist.org/packages/azure-oss/storage-blob-flysystem-symfony)
-[![Packagist Downloads](https://img.shields.io/packagist/dt/azure-oss/storage-blob-flysystem-symfony)](https://packagist.org/packages/azure-oss/storage-blob-flysystem-symfony)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/azure-oss/storage-blob-symfony.svg)](https://packagist.org/packages/azure-oss/storage-blob-symfony)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/azure-oss/storage-blob-symfony)](https://packagist.org/packages/azure-oss/storage-blob-symfony)
 
 Community-driven PHP SDKs for Azure, because Microsoft won't.
 
@@ -29,10 +29,10 @@ Our other packages:
 ## Install
 
 ```shell
-composer require azure-oss/storage-blob-flysystem-symfony
+composer require azure-oss/storage-blob-symfony
 ```
 
-If you have Symfony Flex installed it will register `AzureOss\Storage\BlobFlysystemSymfony\AzureOssFlysystemBundle` for you. Otherwise add it to `config/bundles.php`:
+If you have Symfony Flex installed it will register `AzureOss\Storage\BlobFlysystemSymfony\AzureStorageBlobFlysystemBundle` for you. Otherwise add it to `config/bundles.php`:
 
 ```php
 return [
