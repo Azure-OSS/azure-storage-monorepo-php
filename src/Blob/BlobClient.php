@@ -258,7 +258,11 @@ final class BlobClient
         $blockIds = [];
         $contextMD5 = $httpHeaders->contentHash === '' ? hash_init('md5') : null;
 
-        $putBlockRequestGenerator = function () use (&$content, &$blockIds, &$contextMD5, $maximumTransferSize, $conditions): \Generator {
+        $stageBlockConditions = $conditions?->leaseId === null
+            ? null
+            : new BlobRequestConditions(leaseId: $conditions->leaseId);
+
+        $putBlockRequestGenerator = function () use (&$content, &$blockIds, &$contextMD5, $maximumTransferSize, $stageBlockConditions): \Generator {
             while (true) {
                 $blockContent = StreamUtils::streamFor();
                 $remaining = $maximumTransferSize;
@@ -291,7 +295,7 @@ final class BlobClient
                 yield fn () => $this->blockBlobClient->stageBlockAsync(
                     $blockId,
                     $blockContent,
-                    new StageBlockOptions(conditions: $conditions),
+                    new StageBlockOptions(conditions: $stageBlockConditions),
                 );
             }
         };
@@ -360,13 +364,18 @@ final class BlobClient
      */
     public function syncCopyFromUriAsync(UriInterface $source, SyncCopyFromUriOptions $options = new SyncCopyFromUriOptions): PromiseInterface
     {
+        $options->sourceConditions?->assertSupported(
+            'BlobClient::syncCopyFromUri source',
+            leaseId: false,
+        );
+
         return $this->client
             ->putAsync($this->uri, [
                 'headers' => [
                     'x-ms-copy-source' => (string) $source,
                     'x-ms-requires-sync' => 'true',
                     ...($options->destinationConditions?->toHeaders() ?? []),
-                    ...($options->sourceConditions?->toHeaders(prefix: 'x-ms-source-') ?? []),
+                    ...($options->sourceConditions?->toHeaders(leaseId: false, prefix: 'x-ms-source-') ?? []),
                 ],
             ])
             ->then(BlobCopyResult::fromResponse(...));
@@ -386,12 +395,17 @@ final class BlobClient
      */
     public function startCopyFromUriAsync(UriInterface $source, StartCopyFromUriOptions $options = new StartCopyFromUriOptions): PromiseInterface
     {
+        $options->sourceConditions?->assertSupported(
+            'BlobClient::startCopyFromUri source',
+            leaseId: false,
+        );
+
         return $this->client
             ->putAsync($this->uri, [
                 RequestOptions::HEADERS => [
                     'x-ms-copy-source' => (string) $source,
                     ...($options->destinationConditions?->toHeaders() ?? []),
-                    ...($options->sourceConditions?->toHeaders(prefix: 'x-ms-source-') ?? []),
+                    ...($options->sourceConditions?->toHeaders(leaseId: false, prefix: 'x-ms-source-') ?? []),
                 ],
             ])
             ->then(BlobCopyResult::fromResponse(...));
@@ -410,6 +424,14 @@ final class BlobClient
      */
     public function abortCopyFromUriAsync(string $copyId, AbortCopyFromUriOptions $options = new AbortCopyFromUriOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobClient::abortCopyFromUri',
+            ifMatch: false,
+            ifModifiedSince: false,
+            ifNoneMatch: false,
+            ifUnmodifiedSince: false,
+        );
+
         return $this->client
             ->putAsync($this->uri, [
                 'query' => [

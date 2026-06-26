@@ -50,6 +50,14 @@ final class BlockBlobClient
 
     public function stageBlockAsync(string $base64BlockId, StreamInterface|string $content, StageBlockOptions $options = new StageBlockOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlockBlobClient::stageBlock',
+            ifMatch: false,
+            ifModifiedSince: false,
+            ifNoneMatch: false,
+            ifUnmodifiedSince: false,
+        );
+
         $stream = Utils::streamFor($content);
 
         $md5 = Utils::hash($stream, 'md5', true);

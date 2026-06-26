@@ -88,4 +88,18 @@ final class BlobRequestConditionsTest extends TestCase
             'If-Unmodified-Since' => 'Thu, 02 Jan 2025 12:34:56 GMT',
         ], $conditions->toHeaders(ifMatch: false, ifNoneMatch: false, leaseId: false));
     }
+
+    #[Test]
+    public function rejects_unsupported_conditions(): void
+    {
+        $conditions = new BlobRequestConditions(
+            ifMatch: new ETag('"match"'),
+            leaseId: '11111111-1111-4111-8111-111111111111',
+        );
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Example::operation does not support request condition(s): ifMatch, leaseId.');
+
+        $conditions->assertSupported('Example::operation', ifMatch: false, leaseId: false);
+    }
 }

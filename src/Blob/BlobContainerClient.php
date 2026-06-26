@@ -145,6 +145,12 @@ final class BlobContainerClient
 
     public function deleteAsync(DeleteContainerOptions $options = new DeleteContainerOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobContainerClient::delete',
+            ifMatch: false,
+            ifNoneMatch: false,
+        );
+
         return $this->client->deleteAsync($this->uri, [
             RequestOptions::QUERY => [
                 'restype' => 'container',
@@ -202,8 +208,16 @@ final class BlobContainerClient
 
     public function getPropertiesAsync(GetContainerPropertiesOptions $options = new GetContainerPropertiesOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobContainerClient::getProperties',
+            ifMatch: false,
+            ifModifiedSince: false,
+            ifNoneMatch: false,
+            ifUnmodifiedSince: false,
+        );
+
         return $this->client
-            ->getAsync($this->uri, [
+            ->headAsync($this->uri, [
                 RequestOptions::QUERY => [
                     'restype' => 'container',
                 ],
@@ -230,6 +244,13 @@ final class BlobContainerClient
      */
     public function setMetadataAsync(array $metadata, SetContainerMetadataOptions $options = new SetContainerMetadataOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobContainerClient::setMetadata',
+            ifMatch: false,
+            ifNoneMatch: false,
+            ifUnmodifiedSince: false,
+        );
+
         return $this->client->putAsync($this->uri, [
             RequestOptions::QUERY => [
                 'restype' => 'container',

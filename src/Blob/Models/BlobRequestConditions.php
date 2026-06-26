@@ -18,6 +18,48 @@ final class BlobRequestConditions
 
     /**
      * @internal
+     */
+    public function assertSupported(
+        string $operation,
+        bool $ifMatch = true,
+        bool $ifModifiedSince = true,
+        bool $ifNoneMatch = true,
+        bool $ifUnmodifiedSince = true,
+        bool $leaseId = true,
+    ): void {
+        $unsupported = [];
+
+        if (! $ifMatch && $this->ifMatch !== null) {
+            $unsupported[] = 'ifMatch';
+        }
+
+        if (! $ifModifiedSince && $this->ifModifiedSince !== null) {
+            $unsupported[] = 'ifModifiedSince';
+        }
+
+        if (! $ifNoneMatch && $this->ifNoneMatch !== null) {
+            $unsupported[] = 'ifNoneMatch';
+        }
+
+        if (! $ifUnmodifiedSince && $this->ifUnmodifiedSince !== null) {
+            $unsupported[] = 'ifUnmodifiedSince';
+        }
+
+        if (! $leaseId && $this->leaseId !== null) {
+            $unsupported[] = 'leaseId';
+        }
+
+        if ($unsupported !== []) {
+            throw new \InvalidArgumentException(sprintf(
+                '%s does not support request condition(s): %s.',
+                $operation,
+                implode(', ', $unsupported),
+            ));
+        }
+    }
+
+    /**
+     * @internal
      *
      * @return array<string, string>
      */

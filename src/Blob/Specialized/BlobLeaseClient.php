@@ -44,9 +44,16 @@ final class BlobLeaseClient
 
     public function acquireAsync(int $durationSeconds = self::INFINITE_LEASE_DURATION, AcquireBlobLeaseOptions $options = new AcquireBlobLeaseOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobLeaseClient::acquire',
+            ifMatch: ! $this->container,
+            ifNoneMatch: ! $this->container,
+            leaseId: false,
+        );
+
         $conditionHeaders = $this->container
             ? ($options->conditions?->toHeaders(ifMatch: false, ifNoneMatch: false, leaseId: false) ?? [])
-            : ($options->conditions?->toHeaders() ?? []);
+            : ($options->conditions?->toHeaders(leaseId: false) ?? []);
 
         return $this->client->putAsync($this->uri, [
             RequestOptions::QUERY => array_filter([
@@ -70,9 +77,16 @@ final class BlobLeaseClient
 
     public function renewAsync(RenewBlobLeaseOptions $options = new RenewBlobLeaseOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobLeaseClient::renew',
+            ifMatch: ! $this->container,
+            ifNoneMatch: ! $this->container,
+            leaseId: false,
+        );
+
         $conditionHeaders = $this->container
             ? ($options->conditions?->toHeaders(ifMatch: false, ifNoneMatch: false, leaseId: false) ?? [])
-            : ($options->conditions?->toHeaders() ?? []);
+            : ($options->conditions?->toHeaders(leaseId: false) ?? []);
 
         return $this->client->putAsync($this->uri, [
             RequestOptions::QUERY => array_filter([
@@ -95,9 +109,16 @@ final class BlobLeaseClient
 
     public function changeAsync(string $proposedLeaseId, ChangeBlobLeaseOptions $options = new ChangeBlobLeaseOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobLeaseClient::change',
+            ifMatch: ! $this->container,
+            ifNoneMatch: ! $this->container,
+            leaseId: false,
+        );
+
         $conditionHeaders = $this->container
             ? ($options->conditions?->toHeaders(ifMatch: false, ifNoneMatch: false, leaseId: false) ?? [])
-            : ($options->conditions?->toHeaders() ?? []);
+            : ($options->conditions?->toHeaders(leaseId: false) ?? []);
 
         return $this->client->putAsync($this->uri, [
             RequestOptions::QUERY => array_filter([
@@ -127,9 +148,16 @@ final class BlobLeaseClient
 
     public function releaseAsync(ReleaseBlobLeaseOptions $options = new ReleaseBlobLeaseOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobLeaseClient::release',
+            ifMatch: ! $this->container,
+            ifNoneMatch: ! $this->container,
+            leaseId: false,
+        );
+
         $conditionHeaders = $this->container
             ? ($options->conditions?->toHeaders(ifMatch: false, ifNoneMatch: false, leaseId: false) ?? [])
-            : ($options->conditions?->toHeaders() ?? []);
+            : ($options->conditions?->toHeaders(leaseId: false) ?? []);
 
         return $this->client->putAsync($this->uri, [
             RequestOptions::QUERY => array_filter([
@@ -141,7 +169,7 @@ final class BlobLeaseClient
                 'x-ms-lease-action' => 'release',
                 'x-ms-lease-id' => $this->leaseId,
             ],
-        ])->then(fn (ResponseInterface $response): BlobLease => BlobLease::fromResponse($response, $this->leaseId));
+        ])->then(fn (ResponseInterface $response): BlobLease => BlobLease::fromResponse($response));
     }
 
     public function break(?int $breakPeriodSeconds = null, BreakBlobLeaseOptions $options = new BreakBlobLeaseOptions): BlobLease
@@ -152,9 +180,16 @@ final class BlobLeaseClient
 
     public function breakAsync(?int $breakPeriodSeconds = null, BreakBlobLeaseOptions $options = new BreakBlobLeaseOptions): PromiseInterface
     {
+        $options->conditions?->assertSupported(
+            'BlobLeaseClient::break',
+            ifMatch: ! $this->container,
+            ifNoneMatch: ! $this->container,
+            leaseId: false,
+        );
+
         $conditionHeaders = $this->container
             ? ($options->conditions?->toHeaders(ifMatch: false, ifNoneMatch: false, leaseId: false) ?? [])
-            : ($options->conditions?->toHeaders() ?? []);
+            : ($options->conditions?->toHeaders(leaseId: false) ?? []);
 
         return $this->client->putAsync($this->uri, [
             RequestOptions::QUERY => array_filter([
@@ -166,7 +201,7 @@ final class BlobLeaseClient
                 'x-ms-lease-action' => 'break',
                 'x-ms-lease-break-period' => $breakPeriodSeconds,
             ], fn ($value) => $value !== null),
-        ])->then(fn (ResponseInterface $response): BlobLease => BlobLease::fromResponse($response, $this->leaseId));
+        ])->then(fn (ResponseInterface $response): BlobLease => BlobLease::fromResponse($response));
     }
 
     private function updateLeaseIdFromResponse(ResponseInterface $response): BlobLease

@@ -396,7 +396,6 @@ class MockBlobClientTest extends TestCase
 
         $container->getProperties(new GetContainerPropertiesOptions(
             conditions: new BlobRequestConditions(
-                ifMatch: new ETag('"match"'),
                 leaseId: '11111111-1111-4111-8111-111111111111',
             ),
         ));
@@ -404,12 +403,29 @@ class MockBlobClientTest extends TestCase
         $requests = Server::received();
 
         self::assertCount(1, $requests);
+        self::assertSame('HEAD', $requests[0]->getMethod());
         self::assertSame('11111111-1111-4111-8111-111111111111', $requests[0]->getHeaderLine('x-ms-lease-id'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Match'));
     }
 
     #[Test]
-    public function container_delete_sends_only_supported_conditions(): void
+    public function container_get_properties_rejects_unsupported_conditions(): void
+    {
+        $serverUrl = Server::$url;
+        self::assertIsString($serverUrl);
+
+        $service = new BlobServiceClient(new Uri($serverUrl.'/devstoreaccount1'));
+        $container = $service->getContainerClient('test');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('BlobContainerClient::getProperties does not support request condition(s): ifMatch.');
+
+        $container->getProperties(new GetContainerPropertiesOptions(
+            conditions: new BlobRequestConditions(ifMatch: new ETag('"match"')),
+        ));
+    }
+
+    #[Test]
+    public function container_delete_sends_supported_conditions(): void
     {
         Server::enqueue([
             new Response(202),
@@ -423,9 +439,7 @@ class MockBlobClientTest extends TestCase
         $container = $service->getContainerClient('test');
 
         $container->delete(new DeleteContainerOptions(new BlobRequestConditions(
-            ifMatch: new ETag('"match"'),
             ifModifiedSince: new \DateTimeImmutable('2025-01-01 12:34:56 UTC'),
-            ifNoneMatch: ETag::all(),
             ifUnmodifiedSince: new \DateTimeImmutable('2025-01-02 12:34:56 UTC'),
             leaseId: '11111111-1111-4111-8111-111111111111',
         )));
@@ -436,12 +450,28 @@ class MockBlobClientTest extends TestCase
         self::assertSame('Wed, 01 Jan 2025 12:34:56 GMT', $requests[0]->getHeaderLine('If-Modified-Since'));
         self::assertSame('Thu, 02 Jan 2025 12:34:56 GMT', $requests[0]->getHeaderLine('If-Unmodified-Since'));
         self::assertSame('11111111-1111-4111-8111-111111111111', $requests[0]->getHeaderLine('x-ms-lease-id'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Match'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-None-Match'));
     }
 
     #[Test]
-    public function container_set_metadata_sends_only_supported_conditions(): void
+    public function container_delete_rejects_unsupported_conditions(): void
+    {
+        $serverUrl = Server::$url;
+        self::assertIsString($serverUrl);
+
+        $service = new BlobServiceClient(new Uri($serverUrl.'/devstoreaccount1'));
+        $container = $service->getContainerClient('test');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('BlobContainerClient::delete does not support request condition(s): ifMatch, ifNoneMatch.');
+
+        $container->delete(new DeleteContainerOptions(new BlobRequestConditions(
+            ifMatch: new ETag('"match"'),
+            ifNoneMatch: ETag::all(),
+        )));
+    }
+
+    #[Test]
+    public function container_set_metadata_sends_supported_conditions(): void
     {
         Server::enqueue([
             new Response(200),
@@ -455,10 +485,7 @@ class MockBlobClientTest extends TestCase
         $container = $service->getContainerClient('test');
 
         $container->setMetadata(['foo' => 'bar'], new SetContainerMetadataOptions(new BlobRequestConditions(
-            ifMatch: new ETag('"match"'),
             ifModifiedSince: new \DateTimeImmutable('2025-01-01 12:34:56 UTC'),
-            ifNoneMatch: ETag::all(),
-            ifUnmodifiedSince: new \DateTimeImmutable('2025-01-02 12:34:56 UTC'),
             leaseId: '11111111-1111-4111-8111-111111111111',
         )));
 
@@ -467,13 +494,27 @@ class MockBlobClientTest extends TestCase
         self::assertCount(1, $requests);
         self::assertSame('Wed, 01 Jan 2025 12:34:56 GMT', $requests[0]->getHeaderLine('If-Modified-Since'));
         self::assertSame('11111111-1111-4111-8111-111111111111', $requests[0]->getHeaderLine('x-ms-lease-id'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Match'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-None-Match'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Unmodified-Since'));
     }
 
     #[Test]
-    public function container_lease_operations_send_only_supported_conditions(): void
+    public function container_set_metadata_rejects_unsupported_conditions(): void
+    {
+        $serverUrl = Server::$url;
+        self::assertIsString($serverUrl);
+
+        $service = new BlobServiceClient(new Uri($serverUrl.'/devstoreaccount1'));
+        $container = $service->getContainerClient('test');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('BlobContainerClient::setMetadata does not support request condition(s): ifUnmodifiedSince.');
+
+        $container->setMetadata(['foo' => 'bar'], new SetContainerMetadataOptions(new BlobRequestConditions(
+            ifUnmodifiedSince: new \DateTimeImmutable('2025-01-02 12:34:56 UTC'),
+        )));
+    }
+
+    #[Test]
+    public function container_lease_operations_send_supported_conditions(): void
     {
         Server::enqueue([
             new Response(201, ['x-ms-lease-id' => '22222222-2222-4222-8222-222222222222']),
@@ -487,11 +528,8 @@ class MockBlobClientTest extends TestCase
         $container = $service->getContainerClient('test');
 
         $container->getBlobLeaseClient()->acquire(15, new AcquireBlobLeaseOptions(new BlobRequestConditions(
-            ifMatch: new ETag('"match"'),
             ifModifiedSince: new \DateTimeImmutable('2025-01-01 12:34:56 UTC'),
-            ifNoneMatch: ETag::all(),
             ifUnmodifiedSince: new \DateTimeImmutable('2025-01-02 12:34:56 UTC'),
-            leaseId: '11111111-1111-4111-8111-111111111111',
         )));
 
         $requests = Server::received();
@@ -499,13 +537,29 @@ class MockBlobClientTest extends TestCase
         self::assertCount(1, $requests);
         self::assertSame('Wed, 01 Jan 2025 12:34:56 GMT', $requests[0]->getHeaderLine('If-Modified-Since'));
         self::assertSame('Thu, 02 Jan 2025 12:34:56 GMT', $requests[0]->getHeaderLine('If-Unmodified-Since'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Match'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-None-Match'));
         self::assertSame('', $requests[0]->getHeaderLine('x-ms-lease-id'));
     }
 
     #[Test]
-    public function abort_copy_from_uri_sends_only_lease_id_condition(): void
+    public function container_lease_operations_reject_unsupported_conditions(): void
+    {
+        $serverUrl = Server::$url;
+        self::assertIsString($serverUrl);
+
+        $service = new BlobServiceClient(new Uri($serverUrl.'/devstoreaccount1'));
+        $container = $service->getContainerClient('test');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('BlobLeaseClient::acquire does not support request condition(s): ifMatch, leaseId.');
+
+        $container->getBlobLeaseClient()->acquire(15, new AcquireBlobLeaseOptions(new BlobRequestConditions(
+            ifMatch: new ETag('"match"'),
+            leaseId: '11111111-1111-4111-8111-111111111111',
+        )));
+    }
+
+    #[Test]
+    public function abort_copy_from_uri_sends_lease_id_condition(): void
     {
         Server::enqueue([
             new Response(204),
@@ -513,10 +567,6 @@ class MockBlobClientTest extends TestCase
         ]);
 
         $this->blob->abortCopyFromUri('copy-id', new AbortCopyFromUriOptions(new BlobRequestConditions(
-            ifMatch: new ETag('"match"'),
-            ifModifiedSince: new \DateTimeImmutable('2025-01-01 12:34:56 UTC'),
-            ifNoneMatch: ETag::all(),
-            ifUnmodifiedSince: new \DateTimeImmutable('2025-01-02 12:34:56 UTC'),
             leaseId: '11111111-1111-4111-8111-111111111111',
         )));
 
@@ -525,10 +575,17 @@ class MockBlobClientTest extends TestCase
         self::assertCount(1, $requests);
         self::assertSame('abort', $requests[0]->getHeaderLine('x-ms-copy-action'));
         self::assertSame('11111111-1111-4111-8111-111111111111', $requests[0]->getHeaderLine('x-ms-lease-id'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Match'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Modified-Since'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-None-Match'));
-        self::assertSame('', $requests[0]->getHeaderLine('If-Unmodified-Since'));
+    }
+
+    #[Test]
+    public function abort_copy_from_uri_rejects_unsupported_conditions(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('BlobClient::abortCopyFromUri does not support request condition(s): ifMatch.');
+
+        $this->blob->abortCopyFromUri('copy-id', new AbortCopyFromUriOptions(new BlobRequestConditions(
+            ifMatch: new ETag('"match"'),
+        )));
     }
 
     #[Test]
