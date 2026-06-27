@@ -2,9 +2,15 @@ name: Push Subtrees
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch: ~
+    tags:
+      - storage-common-*
+      - storage-blob-*
+      - storage-blob-flysystem-*
+      - storage-blob-laravel-*
+      - storage-blob-symfony-*
+      - storage-queue-*
+      - storage-queue-laravel-*
+      - storage-file-share-*
 
 jobs:
   push-subtrees:
@@ -13,36 +19,61 @@ jobs:
       matrix:
         include:
           - prefix: src/Common
+            tag_prefix: storage-common
             repo: Azure-OSS/azure-storage-common-php
             secret: DEPLOY_KEY_COMMON
           - prefix: src/Blob
+            tag_prefix: storage-blob
             repo: Azure-OSS/azure-storage-blob-php
             secret: DEPLOY_KEY_BLOB
           - prefix: src/BlobFlysystem
+            tag_prefix: storage-blob-flysystem
             repo: Azure-OSS/azure-storage-blob-flysystem-php
             secret: DEPLOY_KEY_BLOB_FLYSYSTEM
           - prefix: src/BlobLaravel
+            tag_prefix: storage-blob-laravel
             repo: Azure-OSS/azure-storage-blob-laravel-php
             secret: DEPLOY_KEY_BLOB_LARAVEL
           - prefix: src/BlobSymfony
+            tag_prefix: storage-blob-symfony
             repo: Azure-OSS/azure-storage-blob-symfony-php
             secret: DEPLOY_KEY_BLOB_SYMFONY
           - prefix: src/Queue
+            tag_prefix: storage-queue
             repo: Azure-OSS/azure-storage-queue-php
             secret: DEPLOY_KEY_QUEUE
           - prefix: src/QueueLaravel
+            tag_prefix: storage-queue-laravel
             repo: Azure-OSS/azure-storage-queue-laravel-php
             secret: DEPLOY_KEY_QUEUE_LARAVEL
           - prefix: src/File/Share
+            tag_prefix: storage-file-share
             repo: Azure-OSS/azure-storage-file-share-php
             secret: DEPLOY_KEY_FILE_SHARE
     steps:
+      - name: Match package tag
+        id: release
+        env:
+          TAG_PREFIX: ${{ matrix.tag_prefix }}
+        run: |
+          VERSION=${GITHUB_REF_NAME#"$TAG_PREFIX-"}
+
+          if [[ "$GITHUB_REF_NAME" != "$TAG_PREFIX-"* ]] || [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "matched=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "matched=true" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Checkout monorepo
+        if: steps.release.outputs.matched == 'true'
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Cache splitsh-lite
+        if: steps.release.outputs.matched == 'true'
         id: cache-splitsh
         uses: actions/cache@v5
         with:
@@ -50,7 +81,7 @@ jobs:
           key: splitsh-lite-v1.0.1
 
       - name: Install splitsh-lite
-        if: steps.cache-splitsh.outputs.cache-hit != 'true'
+        if: steps.release.outputs.matched == 'true' && steps.cache-splitsh.outputs.cache-hit != 'true'
         run: |
           wget -q https://github.com/splitsh/lite/releases/download/v1.0.1/lite_linux_amd64.tar.gz
           tar -zxf lite_linux_amd64.tar.gz
@@ -58,8 +89,10 @@ jobs:
           sudo mv splitsh-lite /usr/local/bin/
 
       - name: Setup SSH and push
+        if: steps.release.outputs.matched == 'true'
         env:
           SSH_KEY: ${{ secrets[matrix.secret] }}
+          VERSION: ${{ steps.release.outputs.version }}
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
@@ -69,4 +102,6 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           SHA=$(splitsh-lite --prefix=${{ matrix.prefix }})
-          git push git@github.com:${{ matrix.repo }}.git $SHA:refs/heads/main --force
+          git push --atomic git@github.com:${{ matrix.repo }}.git \
+            +$SHA:refs/heads/main \
+            $SHA:refs/tags/$VERSION
