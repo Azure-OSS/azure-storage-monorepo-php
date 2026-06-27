@@ -41,6 +41,7 @@
     "league/flysystem-bundle": "^3.7",
     "orchestra/testbench": "^10.11 || ^11.0",
     "php-http/discovery": "^1.20",
+    "phpdocumentor/shim": "^3.10",
     "phpstan/extension-installer": "^1.4",
     "phpstan/phpstan": "^2.2",
     "phpstan/phpstan-deprecation-rules": "^2.0",
@@ -55,7 +56,11 @@
     "sort-packages": true,
     "allow-plugins": {
       "php-http/discovery": true,
+      "phpdocumentor/shim": true,
       "phpstan/extension-installer": true
     }
+  },
+  "scripts": {
+    "docs:api": "cd /tmp && phpdoc --config \"$OLDPWD/phpdoc.dist.xml\""
   }
 }

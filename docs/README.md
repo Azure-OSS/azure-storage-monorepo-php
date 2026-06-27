@@ -24,6 +24,16 @@ yarn build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
+## PHP API Reference
+
+Generate the standalone phpDocumentor site from the repository root before building Docusaurus:
+
+```bash
+composer docs:api
+```
+
+The generated files are written to `docs/static/api/`, copied into the Docusaurus build, and served at `/api/` under the configured site base URL. The generated files are ignored by Git and are rebuilt by the documentation GitHub Actions workflow.
+
 ## Deployment
 
 Using SSH:

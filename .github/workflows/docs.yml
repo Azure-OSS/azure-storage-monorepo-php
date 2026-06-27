@@ -4,12 +4,18 @@ on:
   pull_request:
     paths:
       - docs/**
+      - src/**
+      - composer.json
+      - phpdoc.dist.xml
       - .github/workflows/docs.yml
   push:
     branches:
       - main
     paths:
       - docs/**
+      - src/**
+      - composer.json
+      - phpdoc.dist.xml
       - .github/workflows/docs.yml
   workflow_dispatch: ~
 
@@ -22,6 +28,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Install PHP dependencies
+        working-directory: .
+        run: composer install --no-interaction --no-progress --optimize-autoloader
+
+      - name: Generate PHP API documentation
+        working-directory: .
+        run: composer docs:api
 
       - name: Set up Node.js
         uses: actions/setup-node@v5
