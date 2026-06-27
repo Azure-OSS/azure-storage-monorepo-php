@@ -1,0 +1,84 @@
+name: Deploy documentation
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate documentation version
+        env:
+          VERSION: ${{ github.ref_name }}
+        run: |
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid documentation version: $VERSION"
+            exit 1
+          fi
+
+      - name: Checkout documentation release from the monorepo
+        uses: actions/checkout@v6
+        with:
+          repository: Azure-OSS/azure-storage-monorepo
+          ref: docs-${{ github.ref_name }}
+          path: monorepo
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Install PHP dependencies
+        working-directory: monorepo
+        run: composer install --no-interaction --no-progress --optimize-autoloader
+
+      - name: Generate PHP API documentation
+        working-directory: monorepo
+        run: composer docs:api
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: monorepo/docs/package-lock.json
+
+      - name: Install Docusaurus dependencies
+        working-directory: monorepo/docs
+        run: npm ci
+
+      - name: Build documentation
+        working-directory: monorepo/docs
+        run: npm run build
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: monorepo/docs/build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
