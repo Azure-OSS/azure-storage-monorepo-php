@@ -1,6 +1,7 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import {apiReferencePath, baseUrl, siteUrl} from './siteConfig';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -15,10 +16,10 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://azure-oss.github.io',
+  url: siteUrl,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -64,6 +65,13 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
+        // The API reference is a static phpDocumentor site, not a Docusaurus route.
+        // A raw anchor keeps the link local without triggering route validation.
+        {
+          type: 'html',
+          value: `<a class="navbar__link menu__link" href="${apiReferencePath}">PHP API Reference</a>`,
+          position: 'left',
+        },
         {
           href: 'https://github.com/Azure-OSS',
           label: 'GitHub',

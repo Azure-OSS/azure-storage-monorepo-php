@@ -24,18 +24,25 @@ yarn build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
+## PHP API Reference
+
+Generate the standalone phpDocumentor site from the repository root before building Docusaurus:
+
+```bash
+composer docs:api
+```
+
+The generated files are written to `docs/static/api/`, copied into the Docusaurus build, and served at `/api/` under the configured site base URL. The generated files are ignored by Git and are rebuilt by the documentation GitHub Actions workflow.
+
 ## Deployment
 
-Using SSH:
+Documentation releases are deployed automatically through GitHub Pages. Create and push a documentation tag from the monorepo:
 
 ```bash
-USE_SSH=true yarn deploy
+git tag docs-1.2.3
+git push origin docs-1.2.3
 ```
 
-Not using SSH:
+The subtree workflow publishes the `docs/` tree and the stripped `1.2.3` tag to `Azure-OSS/azure-oss.github.io`. That tag starts the Pages workflow, which checks out the matching `docs-1.2.3` monorepo tag, generates the PHP API reference, builds Docusaurus, and deploys the build as an artifact. Generated API and Docusaurus build files are never committed.
 
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+The Pages repository must use **GitHub Actions** as its publishing source under **Settings → Pages**.

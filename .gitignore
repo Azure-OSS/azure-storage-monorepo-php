@@ -3,4 +3,6 @@
 /composer.lock
 /.idea
 /.phpunit.cache
+/.phpdoc
 /phpunit.local.xml
+/docs/static/api
