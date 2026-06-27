@@ -114,7 +114,10 @@ class MockBlobClientTest extends TestCase
         ]);
 
         $file = $this->tempFile(1000);
-        $this->blob->upload($file, new UploadBlobOptions('text/plain', initialTransferSize: 2000));
+        $this->blob->upload($file, new UploadBlobOptions(
+            initialTransferSize: 2000,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
 
@@ -132,7 +135,11 @@ class MockBlobClientTest extends TestCase
         ]);
 
         $file = $this->tempFile(50_000_000);
-        $this->blob->upload($file, new UploadBlobOptions('text/plain', initialTransferSize: 0, maximumTransferSize: 5_000_000));
+        $this->blob->upload($file, new UploadBlobOptions(
+            initialTransferSize: 0,
+            maximumTransferSize: 5_000_000,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
 
@@ -156,7 +163,11 @@ class MockBlobClientTest extends TestCase
         ]);
 
         $file = $this->tempFile(50_000);
-        $this->blob->upload($file, new UploadBlobOptions('text/plain', initialTransferSize: 0, maximumTransferSize: 8_000_000));
+        $this->blob->upload($file, new UploadBlobOptions(
+            initialTransferSize: 0,
+            maximumTransferSize: 8_000_000,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
 
@@ -187,7 +198,11 @@ class MockBlobClientTest extends TestCase
             }
         };
 
-        $this->blob->upload($stream, new UploadBlobOptions('text/plain', initialTransferSize: 0, maximumTransferSize: 5_000_000));
+        $this->blob->upload($stream, new UploadBlobOptions(
+            initialTransferSize: 0,
+            maximumTransferSize: 5_000_000,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
 
@@ -221,7 +236,11 @@ class MockBlobClientTest extends TestCase
             }
         };
 
-        $this->blob->upload($stream, new UploadBlobOptions('text/plain', initialTransferSize: 0, maximumTransferSize: null));
+        $this->blob->upload($stream, new UploadBlobOptions(
+            initialTransferSize: 0,
+            maximumTransferSize: null,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
 
@@ -240,7 +259,10 @@ class MockBlobClientTest extends TestCase
         ]);
 
         $file = $this->tempFile(1000);
-        $this->blob->upload($file, new UploadBlobOptions('text/plain', initialTransferSize: 1000));
+        $this->blob->upload($file, new UploadBlobOptions(
+            initialTransferSize: 1000,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
 
@@ -264,7 +286,11 @@ class MockBlobClientTest extends TestCase
             self::fail();
         }
 
-        $this->blob->upload($stream, new UploadBlobOptions('text/plain', initialTransferSize: 0, maximumTransferSize: 5_000_000));
+        $this->blob->upload($stream, new UploadBlobOptions(
+            initialTransferSize: 0,
+            maximumTransferSize: 5_000_000,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
         $lastRequestIndex = count($requests) - 1;
@@ -288,10 +314,12 @@ class MockBlobClientTest extends TestCase
         $file->rewind();
 
         $this->blob->upload($file, new UploadBlobOptions(
-            'text/plain',
             initialTransferSize: 0,
             maximumTransferSize: 8_000_000,
-            httpHeaders: new BlobHttpHeaders(contentHash: $contentHash),
+            httpHeaders: new BlobHttpHeaders(
+                contentHash: $contentHash,
+                contentType: 'text/plain',
+            ),
         ));
 
         $requests = Server::received();
@@ -393,7 +421,11 @@ class MockBlobClientTest extends TestCase
             }
         };
 
-        $this->blob->upload($stream, new UploadBlobOptions('text/plain', initialTransferSize: 0, maximumTransferSize: null));
+        $this->blob->upload($stream, new UploadBlobOptions(
+            initialTransferSize: 0,
+            maximumTransferSize: null,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
+        ));
 
         $requests = Server::received();
 

@@ -8,7 +8,6 @@ use AzureOss\Identity\TokenCredential;
 use AzureOss\Storage\Common\ApiVersion;
 use AzureOss\Storage\Common\Auth\StorageSharedKeyCredential;
 use AzureOss\Storage\Common\Exceptions\RequestExceptionDeserializer;
-use AzureOss\Storage\Common\Helpers\StorageUriParserHelper;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleRetry\GuzzleRetryMiddleware;
@@ -29,7 +28,7 @@ final class ClientFactory
 
         $handlerStack->push(new AddXMsClientRequestIdMiddleware);
         $handlerStack->push(new AddXMsDateHeaderMiddleware);
-        $handlerStack->push(new AddXMsVersionMiddleware($this->resolveApiVersion($uri, $apiVersion)));
+        $handlerStack->push(new AddXMsVersionMiddleware($apiVersion));
 
         if ($uri !== null) {
             $handlerStack->push(new AddDefaultQueryParamsMiddleware($uri->getQuery()));
@@ -44,19 +43,6 @@ final class ClientFactory
         $handlerStack->push($this->createRetryMiddleware());
 
         return new Client(array_merge(['handler' => $handlerStack], $options->toGuzzleHttpClientConfig()));
-    }
-
-    private function resolveApiVersion(?UriInterface $uri, ?ApiVersion $apiVersion): ApiVersion
-    {
-        if ($apiVersion !== null) {
-            return $apiVersion;
-        }
-
-        if ($uri !== null && StorageUriParserHelper::isDevelopmentUri($uri)) {
-            return ApiVersion::latestAzurite();
-        }
-
-        return ApiVersion::latestGA();
     }
 
     /**
