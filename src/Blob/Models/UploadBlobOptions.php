@@ -14,7 +14,6 @@ final class UploadBlobOptions
      * @param  int  $maximumConcurrency  The maximum number of workers that may be used in a parallel transfer.
      */
     public function __construct(
-        public ?string $contentType = null,
         public int $initialTransferSize = 256_000_000,
         public ?int $maximumTransferSize = null,
         public int $maximumConcurrency = 5,
@@ -22,9 +21,5 @@ final class UploadBlobOptions
         public ?BlobRequestConditions $conditions = null,
     ) {
         $this->httpHeaders = $httpHeaders ?? new BlobHttpHeaders;
-
-        if ($this->httpHeaders->contentType === '' && $contentType !== null) {
-            $this->httpHeaders->contentType = $contentType;
-        }
     }
 }

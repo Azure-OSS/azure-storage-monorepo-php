@@ -202,9 +202,9 @@ class MockBlobClientTest extends TestCase
         ]);
 
         $this->blob->upload('test', new UploadBlobOptions(
-            'text/plain',
             initialTransferSize: 0,
             maximumTransferSize: 8_000_000,
+            httpHeaders: new BlobHttpHeaders(contentType: 'text/plain'),
             conditions: new BlobRequestConditions(
                 ifMatch: new ETag('"match"'),
                 ifModifiedSince: new \DateTimeImmutable('2025-01-01 12:34:56 UTC'),
