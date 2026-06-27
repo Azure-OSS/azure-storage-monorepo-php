@@ -22,84 +22,15 @@ Our other packages:
 - **[azure-oss/storage-queue-laravel](https://packagist.org/packages/azure-oss/storage-queue-laravel)** – Laravel Queue connector
 - **[azure-oss/storage-file-share](https://packagist.org/packages/azure-oss/storage-file-share)** – Azure Storage File Share SDK (Under construction)
 
-## Requirements
-
-- PHP 8.2+
-- `league/flysystem-bundle` 3.7 or newer (the version that introduced the pluggable `AdapterDefinitionBuilderInterface`).
-
 ## Install
 
 ```shell
 composer require azure-oss/storage-blob-symfony
 ```
 
-If you have Symfony Flex installed it will register `AzureOss\Storage\BlobFlysystemSymfony\AzureStorageBlobFlysystemBundle` for you. Otherwise add it to `config/bundles.php`:
+## Documentation
 
-```php
-return [
-    // ...
-    AzureOss\Storage\BlobSymfony\AzureStorageBlobFlysystemBundle::class => ['all' => true],
-];
-```
-
-## Quickstart
-
-Declare a `BlobServiceClient` service and reference it from a `flysystem` storage that uses the `azure_oss` adapter:
-
-```yaml
-# config/services.yaml
-services:
-    azure_blob_service_client:
-        class: AzureOss\Storage\Blob\BlobServiceClient
-        factory: ['AzureOss\Storage\Blob\BlobServiceClient', 'fromConnectionString']
-        arguments:
-            - '%env(AZURE_STORAGE_CONNECTION_STRING)%'
-```
-
-```yaml
-# config/packages/flysystem.yaml
-flysystem:
-    storages:
-        default.storage:
-            azure_oss:
-                client: azure_blob_service_client
-                container: '%env(AZURE_STORAGE_CONTAINER)%'
-                # Optional:
-                # prefix: 'optional/path/prefix'
-                # mime_type_detector: 'my.custom.mime_type_detector'
-                # visibility_handling: throw  # or 'ignore'
-                # public_container: false
-            visibility: public
-```
-
-You can now autowire the storage anywhere:
-
-```php
-use League\Flysystem\FilesystemOperator;
-
-final class MyService
-{
-    public function __construct(
-        private readonly FilesystemOperator $defaultStorage,
-    ) {
-    }
-}
-```
-
-## Configuration reference
-
-| Option | Required | Default | Description |
-| --- | --- | --- | --- |
-| `client` | yes | – | Service id of a configured `AzureOss\Storage\Blob\BlobServiceClient`. You choose the auth — connection string, SAS token, Entra ID / managed identity. |
-| `container` | yes | – | Azure Blob Storage container name. |
-| `prefix` | no | `''` | Path prefix prepended to every blob name. |
-| `mime_type_detector` | no | `null` | Service id of a `League\MimeTypeDetection\MimeTypeDetector`. Defaults to the adapter's `FinfoMimeTypeDetector`. |
-| `visibility_handling` | no | `throw` | What to do when `setVisibility()` is called (Azure has no per-blob ACL). `throw` or `ignore`. |
-| `public_container` | no | `false` | Whether the underlying container is set to public access. Affects URL generation. |
-
-## Authentication
-
-Authentication is delegated to whatever `BlobServiceClient` you supply via `client`. Besides connection strings the SDK supports SAS tokens and token-based credentials (Entra ID, managed identity, workload identity). See the [`azure-oss/storage` documentation](https://azure-oss.github.io/category/storage) for the full set of authentication helpers.
+You can read the documentation [here](https://azure-oss.github.io/category/storage-blob-symfony).
 
 ## License
 
