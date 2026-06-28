@@ -245,18 +245,14 @@ final class BlobServiceClientTest extends TestCase
         $sasServiceClient = new BlobServiceClient($sas);
 
         // Azure can transiently reject the first signed list request right after container creation.
-        self::assertEventually(
-            callback: function () use ($sasServiceClient): bool {
-                try {
-                    iterator_to_array($sasServiceClient->getBlobContainers());
-
-                    return true;
-                } catch (\Throwable) {
-                    return false;
-                }
+        $containers = null;
+        self::assertEventuallySucceeds(
+            callback: function () use ($sasServiceClient, &$containers): void {
+                $containers = iterator_to_array($sasServiceClient->getBlobContainers());
             },
-            message: 'Account SAS list request timed out'
+            maxAttempts: 30,
         );
+        self::assertIsArray($containers);
     }
 
     #[Test]
