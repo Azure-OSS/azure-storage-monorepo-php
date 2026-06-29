@@ -9,7 +9,7 @@ At the root you will find:
 - `composer.json`: the monorepo-level package, shared dependencies, and root autoload setup.
 - `src/`: all SDK package source code, grouped by Azure service.
 - `tests/`: the test suites, grouped by package.
-- `docs/`: the Docusaurus documentation website, split to `Azure-OSS/azure-oss.github.io`.
+- `docs/`: the Docusaurus documentation website, split to `php-oss-for-azure/php-oss-for-azure.github.io`.
 - `infra/`: Azure Bicep templates for provisioning storage resources used during development or validation.
 - `.github/`: repository automation and helper scripts such as subtree/package sync tooling.
 
@@ -103,7 +103,7 @@ Azure Identity SDK, published as `azure-oss/identity` and split to `Azure-OSS/az
 
 ### `docs`
 
-Docusaurus documentation website, split to `Azure-OSS/azure-oss.github.io`.
+Docusaurus documentation website, split to `Azure-OSS/php-oss-for-azure.github.io`.
 
 ## Dependency Direction
 

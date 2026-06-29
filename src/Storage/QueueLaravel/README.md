@@ -28,11 +28,11 @@ Add a connection to `config/queue.php`:
 ],
 ```
 
-This connector supports shared key and SAS-based authentication via `connection_string`, or shared key via `account_name` + `account_key`. See the [installation docs](https://azure-oss.github.io/category/storage-queue-laravel/installation) for configuration examples.
+This connector supports shared key and SAS-based authentication via `connection_string`, or shared key via `account_name` + `account_key`. See the [installation docs](https://php-oss-for-azure.github.io/category/storage-queue-laravel/installation) for configuration examples.
 
 ## Documentation
 
-You can read the documentation [here](https://azure-oss.github.io/category/storage-queue-laravel).
+You can read the documentation [here](https://php-oss-for-azure.github.io/category/storage-queue-laravel).
 
 ## Related packages
 
@@ -48,7 +48,7 @@ You can read the documentation [here](https://azure-oss.github.io/category/stora
 
 ## Maintenance
 
-This package is part of the community-maintained `azure-oss` Azure SDKs for PHP. It is an independent project and is not affiliated with or endorsed by Microsoft.
+This package is part of the community-maintained PHP OSS for Azure project. It is an independent project and is not affiliated with or endorsed by Microsoft.
 
 ## License
 

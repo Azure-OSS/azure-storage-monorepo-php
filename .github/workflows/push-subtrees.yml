@@ -22,52 +22,52 @@ jobs:
         include:
           - prefix: src/Storage/Common
             tag_prefix: storage-common
-            repo: Azure-OSS/azure-storage-common-php
+            repo: php-oss-for-azure/azure-storage-common-php
             secret: DEPLOY_KEY_COMMON
             changelog: src/Storage/Common/CHANGELOG.md
           - prefix: src/Storage/Blob
             tag_prefix: storage-blob
-            repo: Azure-OSS/azure-storage-blob-php
+            repo: php-oss-for-azure/azure-storage-blob-php
             secret: DEPLOY_KEY_BLOB
             changelog: src/Storage/Blob/CHANGELOG.md
           - prefix: src/Storage/BlobFlysystem
             tag_prefix: storage-blob-flysystem
-            repo: Azure-OSS/azure-storage-blob-flysystem-php
+            repo: php-oss-for-azure/azure-storage-blob-flysystem-php
             secret: DEPLOY_KEY_BLOB_FLYSYSTEM
             changelog: src/Storage/BlobFlysystem/CHANGELOG.md
           - prefix: src/Storage/BlobLaravel
             tag_prefix: storage-blob-laravel
-            repo: Azure-OSS/azure-storage-blob-laravel-php
+            repo: php-oss-for-azure/azure-storage-blob-laravel-php
             secret: DEPLOY_KEY_BLOB_LARAVEL
             changelog: src/Storage/BlobLaravel/CHANGELOG.md
           - prefix: src/Storage/BlobFlysystemBundle
             tag_prefix: storage-blob-flysystem-bundle
-            repo: Azure-OSS/azure-storage-blob-flysystem-bundle-php
+            repo: php-oss-for-azure/azure-storage-blob-flysystem-bundle-php
             secret: DEPLOY_KEY_BLOB_FLYSYSTEM_BUNDLE
             changelog: src/Storage/BlobFlysystemBundle/CHANGELOG.md
           - prefix: src/Storage/Queue
             tag_prefix: storage-queue
-            repo: Azure-OSS/azure-storage-queue-php
+            repo: php-oss-for-azure/azure-storage-queue-php
             secret: DEPLOY_KEY_QUEUE
             changelog: src/Storage/Queue/CHANGELOG.md
           - prefix: src/Storage/QueueLaravel
             tag_prefix: storage-queue-laravel
-            repo: Azure-OSS/azure-storage-queue-laravel-php
+            repo: php-oss-for-azure/azure-storage-queue-laravel-php
             secret: DEPLOY_KEY_QUEUE_LARAVEL
             changelog: src/Storage/QueueLaravel/CHANGELOG.md
           - prefix: src/Storage/File/Share
             tag_prefix: storage-file-share
-            repo: Azure-OSS/azure-storage-file-share-php
+            repo: php-oss-for-azure/azure-storage-file-share-php
             secret: DEPLOY_KEY_FILE_SHARE
             changelog: src/Storage/File/Share/CHANGELOG.md
           - prefix: src/Identity
             tag_prefix: identity
-            repo: Azure-OSS/azure-identity-php
+            repo: php-oss-for-azure/azure-identity-php
             secret: DEPLOY_KEY_IDENTITY
             changelog: src/Identity/CHANGELOG.md
           - prefix: docs
             tag_prefix: docs
-            repo: Azure-OSS/azure-oss.github.io
+            repo: php-oss-for-azure/php-oss-for-azure.github.io
             secret: DEPLOY_KEY_DOCS
             changelog: ""
     steps:

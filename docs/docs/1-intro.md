@@ -15,7 +15,7 @@ no replacement — just a repository marked read-only.
 
 We picked up where they left off.
 
-Azure-OSS provides modern, actively maintained PHP packages for Azure
+PHP OSS for Azure provides modern, actively maintained PHP packages for Azure
 services — built on PHP 8.1+, designed around clean APIs, and tested
 against real Azure infrastructure. Whether you're working with plain PHP,
 Flysystem, or Laravel, we have you covered.
@@ -43,5 +43,5 @@ $container = $service->getContainerClient("photos");
 $container->create();
 
 $blob = $container->getBlobClient("hello.txt");
-$blob->upload("Hello from Azure-OSS!");
+$blob->upload("Hello from PHP OSS for Azure!");
 ```

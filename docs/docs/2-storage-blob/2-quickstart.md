@@ -31,14 +31,14 @@ $container->createIfNotExists();
 $blob = $container->getBlobClient('hello.txt');
 
 $blob->upload(
-    'Hello from Azure-OSS',
+    'Hello from PHP OSS for Azure',
     new UploadBlobOptions(contentType: 'text/plain')
 );
 
 $download = $blob->downloadStreaming();
 $content = $download->content->getContents();
 
-echo $content.PHP_EOL; // Hello from Azure-OSS
+echo $content.PHP_EOL; // Hello from PHP OSS for Azure
 
 foreach ($container->getBlobs() as $item) {
     echo $item->name.PHP_EOL;

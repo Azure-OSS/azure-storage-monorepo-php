@@ -1,6 +1,6 @@
 {
   "name": "azure-oss/storage-blob-flysystem-bundle",
-  "description": "Symfony bundle bridge for the Azure-OSS Flysystem adapter (league/flysystem-bundle 3.7+).",
+  "description": "Symfony bundle bridge for the PHP OSS for Azure Flysystem adapter (league/flysystem-bundle 3.7+).",
   "type": "symfony-bundle",
   "license": "MIT",
   "authors": [

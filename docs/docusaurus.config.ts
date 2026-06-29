@@ -6,8 +6,8 @@ import {apiReferencePath, baseUrl, siteUrl} from './siteConfig';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Azure OSS for PHP',
-  tagline: 'Open Source Azure SDK for PHP',
+  title: 'PHP OSS for Azure',
+  tagline: 'Community-maintained Azure SDK for PHP',
   favicon: 'img/logo.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -24,7 +24,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Azure-OSS', // Usually your GitHub org/user name.
-  projectName: 'azure-oss.github.io', // Usually your repo name.
+  projectName: 'php-oss-for-azure.github.io', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
@@ -59,9 +59,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Azure OSS',
+      title: 'PHP OSS for Azure',
       logo: {
-        alt: 'Azure OSS Logo',
+        alt: 'PHP OSS for Azure Logo',
         src: 'img/logo.svg',
       },
       items: [

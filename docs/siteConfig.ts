@@ -1,4 +1,4 @@
-export const siteUrl = 'https://azure-oss.github.io';
+export const siteUrl = 'https://php-oss-for-azure.github.io';
 export const baseUrl = '/';
 
 export const apiReferencePath = new URL(

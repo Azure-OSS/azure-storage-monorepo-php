@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 
 @description('Name of the resource group to create')
-param resourceGroupName string = 'rg-azure-oss-storage-test'
+param resourceGroupName string = 'rg-php-oss-for-azure-storage-test'
 
 @description('Azure region for all resources')
 param location string = 'eastus'

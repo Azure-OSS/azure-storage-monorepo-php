@@ -67,7 +67,7 @@ $sasUri = $file->generateSasUri(
 
 ## Maintenance
 
-This package is part of the community-maintained `azure-oss` Azure SDKs for PHP. It is an independent project and is not affiliated with or endorsed by Microsoft.
+This package is part of the community-maintained PHP OSS for Azure project. It is an independent project and is not affiliated with or endorsed by Microsoft.
 
 ## License
 

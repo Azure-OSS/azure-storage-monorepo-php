@@ -50,7 +50,7 @@ echo $token->token;
 
 ## Documentation
 
-You can read the documentation [here](https://azure-oss.github.io).
+You can read the documentation [here](https://php-oss-for-azure.github.io).
 
 ## Related packages
 
@@ -66,7 +66,7 @@ You can read the documentation [here](https://azure-oss.github.io).
 
 ## Maintenance
 
-This package is part of the community-maintained `azure-oss` Azure SDKs for PHP. It is an independent project and is not affiliated with or endorsed by Microsoft.
+This package is part of the community-maintained PHP OSS for Azure project. It is an independent project and is not affiliated with or endorsed by Microsoft.
 
 ## License
 

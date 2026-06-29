@@ -1,4 +1,4 @@
-# Azure PHP
+# PHP OSS for Azure
 
 Community-driven PHP SDKs for Azure, because Microsoft won't.
 
@@ -6,12 +6,16 @@ In November 2023, Microsoft officially archived their [Azure SDK for PHP](https:
 
 We picked up where they left off.
 
+PHP OSS for Azure is the new project name. Composer package names, namespaces,
+and other technical identifiers still use `azure-oss` for backwards
+compatibility.
 
-<img src="https://azure-oss.github.io/img/logo.svg" width="150" alt="Screenshot">
+
+<img src="https://php-oss-for-azure.github.io/img/logo.svg" width="150" alt="Screenshot">
 
 ## Documentation
 
-You can read the documentation [here](https://azure-oss.github.io).
+You can read the documentation [here](https://php-oss-for-azure.github.io).
 
 ## Package ecosystem
 

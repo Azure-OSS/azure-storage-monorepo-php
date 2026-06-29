@@ -5,7 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://www.phpdoc.org https://raw.githubusercontent.com/phpDocumentor/phpDocumentor/master/data/xsd/phpdoc.xsd"
 >
-    <title>Azure OSS for PHP API Reference</title>
+    <title>PHP OSS for Azure API Reference</title>
     <paths>
         <output>docs/static/api</output>
         <cache>.phpdoc/cache</cache>

@@ -27,7 +27,7 @@ $service = QueueServiceClient::fromConnectionString(
 $queue = $service->getQueueClient('quickstart');
 $queue->createIfNotExists();
 
-$queue->sendMessage('Hello from Azure-OSS');
+$queue->sendMessage('Hello from PHP OSS for Azure');
 
 $message = $queue->receiveMessage(30);
 if ($message !== null) {

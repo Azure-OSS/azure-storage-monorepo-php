@@ -22,10 +22,10 @@ az login
 az account set --subscription "<subscription-id>"
 
 az deployment sub create \
-  --name "azure-oss-storage-tests" \
+  --name "php-oss-for-azure-storage-tests" \
   --location eastus \
   --template-file infra/main.bicep \
-  --parameters resourceGroupName="rg-azure-oss-storage-test"
+  --parameters resourceGroupName="rg-php-oss-for-azure-storage-test"
 ```
 
 After deployment, capture the outputs and set these environment variables for the storage-related tests:
