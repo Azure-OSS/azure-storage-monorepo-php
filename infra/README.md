@@ -112,3 +112,7 @@ Once the environment variables are set, run:
 ```bash
 ./vendor/bin/phpunit
 ```
+
+## License
+
+This project is released under the MIT License. See [LICENSE](../LICENSE) for details.

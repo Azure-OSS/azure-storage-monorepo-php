@@ -49,3 +49,7 @@ git push origin docs-1.2.3
 The subtree workflow publishes the `docs/` tree and the split-repository tag `1.2.3` to `php-oss-for-azure/php-oss-for-azure.github.io`. That tag starts the Pages workflow, which checks out the matching `docs-1.2.3` monorepo tag, generates the PHP API reference, builds Docusaurus, and deploys the build as an artifact. Generated API and Docusaurus build files are never committed.
 
 The Pages repository must use **GitHub Actions** as its publishing source under **Settings → Pages**.
+
+## License
+
+This project is released under the MIT License. See [LICENSE](./LICENSE) for details.

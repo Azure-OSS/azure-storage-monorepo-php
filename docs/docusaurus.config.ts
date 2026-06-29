@@ -73,7 +73,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/Azure-OSS',
+          href: 'https://github.com/php-oss-for-azure',
           label: 'GitHub',
           position: 'right',
         },
