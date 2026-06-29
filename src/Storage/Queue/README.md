@@ -3,51 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/azure-oss/storage-queue.svg)](https://packagist.org/packages/azure-oss/storage-queue)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/azure-oss/storage-queue)](https://packagist.org/packages/azure-oss/storage-queue)
 
-Community-driven PHP SDKs for Azure, because Microsoft won't.
-
-In November 2023, Microsoft officially archived their [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php) and stopped maintaining PHP integrations for most Azure services. No migration path, no replacement — just a repository marked read-only.
-
-We picked up where they left off.
-
-<img src="https://azure-oss.github.io/img/logo.svg" width="150" alt="Logo">
-
-## Package ecosystem
-
-- **[azure-oss/storage](https://packagist.org/packages/azure-oss/storage)** — Meta package for the Storage SDKs
-  - **[azure-oss/storage-common](https://packagist.org/packages/azure-oss/storage-common)** — Shared authentication, HTTP, and SAS primitives
-  - **[azure-oss/storage-blob](https://packagist.org/packages/azure-oss/storage-blob)** — Blob Storage SDK
-    - **[azure-oss/storage-blob-flysystem](https://packagist.org/packages/azure-oss/storage-blob-flysystem)** — Flysystem adapter
-    - **[azure-oss/storage-blob-laravel](https://packagist.org/packages/azure-oss/storage-blob-laravel)** — Laravel filesystem driver
-    - **[azure-oss/storage-blob-flysystem-bundle](https://packagist.org/packages/azure-oss/storage-blob-flysystem-bundle)** — Symfony Flysystem bundle
-  - **[azure-oss/storage-queue](https://packagist.org/packages/azure-oss/storage-queue)** — Queue Storage SDK
-    - **[azure-oss/storage-queue-laravel](https://packagist.org/packages/azure-oss/storage-queue-laravel)** — Laravel queue connector
-  - **[azure-oss/storage-file-share](https://packagist.org/packages/azure-oss/storage-file-share)** — File Share SDK (under construction)
-- **[azure-oss/identity](https://packagist.org/packages/azure-oss/identity)** — Microsoft Entra ID token authentication
-
-## Features
-
-- Authentication:
-  - Connection strings (access keys)
-  - Shared key credentials
-  - Shared access signatures (SAS) for delegated, time-limited access
-  - Microsoft Entra ID (token-based authentication) via azure-oss/azure-identity
-- Queues:
-  - Create, delete, and check existence
-  - Read properties
-  - Clear messages
-- Messages:
-  - Send messages (with optional visibility timeout and TTL)
-  - Receive one or multiple messages (with visibility timeout)
-  - Delete messages
-  - Update messages (including visibility timeout)
-
-## Notes
-
-- SAS generation is not supported yet in this SDK.
-
-## Documentation
-
-You can read the documentation [here](https://azure-oss.github.io).
+A PHP SDK for Azure Queue Storage with support for queue management, message send/receive/delete, and SAS generation.
 
 ## Install
 
@@ -80,6 +36,43 @@ if ($message !== null) {
 // Optional cleanup
 $queue->deleteIfExists();
 ```
+
+## Features
+
+- Authentication:
+  - Connection strings (access keys)
+  - Shared key credentials
+  - Shared access signatures (SAS) for delegated, time-limited access
+  - Microsoft Entra ID (token-based authentication) via azure-oss/azure-identity
+- Queues:
+  - Create, delete, and check existence
+  - Read properties
+  - Clear messages
+- Messages:
+  - Send messages (with optional visibility timeout and TTL)
+  - Receive one or multiple messages (with visibility timeout)
+  - Delete messages
+  - Update messages (including visibility timeout)
+
+## Documentation
+
+You can read the documentation [here](https://azure-oss.github.io).
+
+## Related packages
+
+- **[azure-oss/storage](https://packagist.org/packages/azure-oss/storage)** — Meta package for the Storage SDKs
+- **[azure-oss/storage-common](https://packagist.org/packages/azure-oss/storage-common)** — Shared authentication, HTTP, and SAS primitives
+- **[azure-oss/storage-blob](https://packagist.org/packages/azure-oss/storage-blob)** — Blob Storage SDK
+- **[azure-oss/storage-blob-flysystem](https://packagist.org/packages/azure-oss/storage-blob-flysystem)** — Flysystem adapter
+- **[azure-oss/storage-blob-flysystem-bundle](https://packagist.org/packages/azure-oss/storage-blob-flysystem-bundle)** — Symfony Flysystem bundle
+- **[azure-oss/storage-blob-laravel](https://packagist.org/packages/azure-oss/storage-blob-laravel)** — Laravel filesystem driver
+- **[azure-oss/storage-queue-laravel](https://packagist.org/packages/azure-oss/storage-queue-laravel)** — Laravel queue connector
+- **[azure-oss/storage-file-share](https://packagist.org/packages/azure-oss/storage-file-share)** — File Share SDK
+- **[azure-oss/identity](https://packagist.org/packages/azure-oss/identity)** — Microsoft Entra ID token authentication
+
+## Maintenance
+
+This package is part of the community-maintained `azure-oss` Azure SDKs for PHP. It is an independent project and is not affiliated with or endorsed by Microsoft.
 
 ## License
 
