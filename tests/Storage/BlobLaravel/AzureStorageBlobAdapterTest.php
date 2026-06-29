@@ -6,6 +6,7 @@ namespace AzureOss\Tests\Storage\BlobLaravel;
 
 use AzureOss\Storage\BlobLaravel\AzureStorageBlobAdapter;
 use AzureOss\Storage\BlobLaravel\AzureStorageBlobServiceProvider;
+use AzureOss\Tests\LoadsFixtures;
 use AzureOss\Tests\RequiresEnvironmentVariables;
 use AzureOss\Tests\Storage\CreatesTempContainers;
 use AzureOss\Tests\Storage\ResolvesBlobConnectionSettings;
@@ -19,7 +20,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 class AzureStorageBlobAdapterTest extends TestCase
 {
-    use CreatesTempContainers, RequiresEnvironmentVariables, ResolvesBlobConnectionSettings;
+    use CreatesTempContainers, LoadsFixtures, RequiresEnvironmentVariables, ResolvesBlobConnectionSettings;
 
     protected function getPackageProviders($app): array
     {
@@ -331,6 +332,38 @@ class AzureStorageBlobAdapterTest extends TestCase
 
         $driver->delete('token-test.txt');
         self::assertFalse($driver->exists('token-test.txt'));
+    }
+
+    #[Test]
+    public function driver_works_with_client_certificate(): void
+    {
+        config(['filesystems.disks.azure' => [
+            'driver' => 'azure-storage-blob',
+            'credential' => 'client_certificate',
+            'tenant_id' => self::getRequiredEnvironmentVariable('AZURE_TENANT_ID'),
+            'client_id' => self::getRequiredEnvironmentVariable('AZURE_CLIENT_ID'),
+            'client_certificate_path' => $this->fixturePath('client-cert-pem-unencrypted.pem'),
+            'container' => $this->tempContainer('laravel-')->containerName,
+            'endpoint' => self::getRequiredBlobEndpointEnvironmentValue(),
+        ]]);
+
+        $driver = Storage::disk('azure');
+        self::assertInstanceOf(AzureStorageBlobAdapter::class, $driver);
+
+        $driver->deleteDirectory('');
+        self::assertFalse($driver->exists('certificate-test.txt'));
+
+        $driver->put('certificate-test.txt', 'certificate auth content');
+        self::assertTrue($driver->exists('certificate-test.txt'));
+        self::assertEquals(
+            'certificate auth content',
+            $driver->get('certificate-test.txt'),
+        );
+
+        self::assertFalse($driver->providesTemporaryUrls());
+
+        $driver->delete('certificate-test.txt');
+        self::assertFalse($driver->exists('certificate-test.txt'));
     }
 
     #[Test]
