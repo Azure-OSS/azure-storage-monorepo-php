@@ -5,6 +5,9 @@
 
 A Symfony bridge for `azure-oss/storage-blob-flysystem` that registers an `azure_oss` adapter for `league/flysystem-bundle`.
 
+> [!IMPORTANT]
+> This package is community-maintained and is not affiliated with, endorsed by, or supported by Microsoft.
+
 ## Install
 
 ```shell

@@ -5,6 +5,9 @@
 
 Shared authentication, HTTP pipeline, API version, ETag, and SAS primitives used by the Azure Storage PHP SDK packages.
 
+> [!IMPORTANT]
+> This package is community-maintained and is not affiliated with, endorsed by, or supported by Microsoft.
+
 ## Install
 
 ```shell

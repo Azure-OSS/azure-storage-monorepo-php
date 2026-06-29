@@ -5,6 +5,9 @@
 
 A PHP SDK for Azure Queue Storage with support for queue management, message send/receive/delete, and SAS generation.
 
+> [!IMPORTANT]
+> This package is community-maintained and is not affiliated with, endorsed by, or supported by Microsoft.
+
 ## Install
 
 ```shell

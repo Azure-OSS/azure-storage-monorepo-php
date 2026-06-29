@@ -5,6 +5,9 @@
 
 A PHP SDK for Azure Blob Storage with support for containers, blobs, leases, tags, versions, and SAS generation.
 
+> [!IMPORTANT]
+> This package is community-maintained and is not affiliated with, endorsed by, or supported by Microsoft.
+
 ## Install
 
 ```shell

@@ -5,6 +5,9 @@
 
 A Laravel queue driver for Azure Queue Storage built on top of `azure-oss/storage-queue`.
 
+> [!IMPORTANT]
+> This package is community-maintained and is not affiliated with, endorsed by, or supported by Microsoft.
+
 ## Install
 
 ```shell

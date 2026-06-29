@@ -5,6 +5,9 @@
 
 A PHP SDK for Azure File Share management and service operations that are not exposed through standard SMB or NFS mounts.
 
+> [!IMPORTANT]
+> This package is community-maintained and is not affiliated with, endorsed by, or supported by Microsoft.
+
 ## Install
 
 ```bash

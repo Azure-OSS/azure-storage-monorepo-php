@@ -5,6 +5,9 @@
 
 A PHP identity library for acquiring Microsoft Entra ID access tokens with client secret, client certificate, workload identity, managed identity, and default credential flows.
 
+> [!IMPORTANT]
+> This package is community-maintained and is not affiliated with, endorsed by, or supported by Microsoft.
+
 ## Install
 
 ```shell
