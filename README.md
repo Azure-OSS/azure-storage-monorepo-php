@@ -12,9 +12,6 @@ compatibility.
 
 <img src="https://php-oss-for-azure.github.io/img/logo.svg" width="150" alt="Screenshot">
 
-> [!IMPORTANT]
-> PHP OSS for Azure is a community-maintained project and is not affiliated with, endorsed by, or supported by Microsoft.
-
 ## Documentation
 
 You can read the documentation [here](https://php-oss-for-azure.github.io).
