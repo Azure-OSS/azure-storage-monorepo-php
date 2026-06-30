@@ -18,6 +18,11 @@ composer require azure-oss/storage-file-share
 
 Read the File Share docs at [php-oss-for-azure.github.io/storage-file-share/core](https://php-oss-for-azure.github.io/storage-file-share/core).
 
+## Migration Guide
+
+Migrating from `microsoft/azure-storage-file`?
+[Migrate from microsoft/azure-storage-file](https://php-oss-for-azure.github.io/storage-file-share/migrate-from-microsoft-azure-storage-file).
+
 ## Quickstart
 
 ```php

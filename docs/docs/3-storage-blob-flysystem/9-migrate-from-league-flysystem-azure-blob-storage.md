@@ -1,6 +1,6 @@
 ---
-sidebar_position: 2
-slug: /migration-guides/league-flysystem-azure-blob-storage
+sidebar_position: 9
+slug: /storage-blob-flysystem/migrate-from-league-flysystem-azure-blob-storage
 title: Migrate from league/flysystem-azure-blob-storage
 description: A focused Flysystem migration from the abandoned Azure adapter to the modern azure-oss replacement.
 ---
@@ -108,6 +108,6 @@ The new adapter exposes clearer write options around headers, conditions, and tr
 
 ## Keep reading
 
-- [Flysystem installation](../3-storage-blob-flysystem/1-installation.md)
-- [Flysystem quickstart](../3-storage-blob-flysystem/2-quickstart.md)
-- [Leaving league/flysystem-azure-blob-storage Behind](../9-blog/2-migrating-from-league-flysystem-azure-blob-storage.md)
+- [Flysystem installation](./1-installation.md)
+- [Flysystem quickstart](./2-quickstart.md)
+- [Leaving league/flysystem-azure-blob-storage Behind](/blog/migrating-from-league-flysystem-azure-blob-storage)

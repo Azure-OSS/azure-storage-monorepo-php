@@ -1,6 +1,6 @@
 ---
-sidebar_position: 4
-slug: /migration-guides/microsoft-azure-storage-queue
+sidebar_position: 9
+slug: /storage-queue/migrate-from-microsoft-azure-storage-queue
 title: Migrate from microsoft/azure-storage-queue
 description: A practical upgrade path from QueueRestProxy to the modern azure-oss Queue clients.
 ---
@@ -107,7 +107,7 @@ Separate those concerns and the rollout gets much easier to debug.
 
 ## Keep reading
 
-- [Queue overview](../5-storage-queue/0-overview.md)
-- [Queue installation](../5-storage-queue/1-installation.md)
-- [Queue quickstart](../5-storage-queue/2-quickstart.md)
-- [A Modern Azure Queue Driver for Laravel](../9-blog/4-modern-azure-queue-for-laravel.md)
+- [Queue overview](./0-overview.md)
+- [Queue installation](./1-installation.md)
+- [Queue quickstart](./2-quickstart.md)
+- [A Modern Azure Queue Driver for Laravel](/blog/modern-azure-queue-for-laravel)

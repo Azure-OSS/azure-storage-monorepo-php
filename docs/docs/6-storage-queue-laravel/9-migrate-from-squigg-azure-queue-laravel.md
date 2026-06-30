@@ -1,6 +1,6 @@
 ---
-sidebar_position: 5
-slug: /migration-guides/squigg-azure-queue-laravel
+sidebar_position: 9
+slug: /storage-queue-laravel/migrate-from-squigg-azure-queue-laravel
 title: Migrate from squigg/azure-queue-laravel
 description: A Laravel queue migration guide focused on config mapping, connection strategy, and worker behavior.
 ---
@@ -115,6 +115,6 @@ If those behave correctly, the migration is usually sound.
 
 ## Keep reading
 
-- [Laravel Queue installation](../6-storage-queue-laravel/1-installation.md)
-- [Laravel Queue quickstart](../6-storage-queue-laravel/2-quickstart.md)
-- [A Modern Azure Queue Driver for Laravel](../9-blog/4-modern-azure-queue-for-laravel.md)
+- [Laravel Queue installation](./1-installation.md)
+- [Laravel Queue quickstart](./2-quickstart.md)
+- [A Modern Azure Queue Driver for Laravel](/blog/modern-azure-queue-for-laravel)

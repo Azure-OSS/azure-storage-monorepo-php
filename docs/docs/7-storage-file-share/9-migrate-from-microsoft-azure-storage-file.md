@@ -1,6 +1,6 @@
 ---
-sidebar_position: 6
-slug: /migration-guides/microsoft-azure-storage-file
+sidebar_position: 9
+slug: /storage-file-share/migrate-from-microsoft-azure-storage-file
 title: Migrate from microsoft/azure-storage-file
 description: An honest migration guide for teams choosing between azure-oss/storage-file-share and a mounted Azure File Share.
 ---
@@ -124,7 +124,7 @@ Specifically check:
 
 ## Keep reading
 
-- [File Share overview](../7-storage-file-share/0-overview.md)
-- [File Share installation](../7-storage-file-share/1-installation.md)
-- [Generating SAS URLs](../7-storage-file-share/2-generating-sas-urls.md)
-- [What to Use After microsoft/azure-storage-file](../9-blog/5-azure-file-share-after-microsoft-azure-storage-file.md)
+- [File Share overview](./0-overview.md)
+- [File Share installation](./1-installation.md)
+- [Generating SAS URLs](./2-generating-sas-urls.md)
+- [What to Use After microsoft/azure-storage-file](/blog/azure-file-share-after-microsoft-azure-storage-file)

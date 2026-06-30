@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-slug: /migration-guides/matthewbdaly-laravel-azure-storage
+sidebar_position: 9
+slug: /storage-blob-laravel/migrate-from-matthewbdaly-laravel-azure-storage
 title: Migrate from matthewbdaly/laravel-azure-storage
 description: A Laravel-focused migration from the older Azure Blob disk to the maintained azure-oss stack.
 ---
@@ -138,6 +138,6 @@ That second phase is where the long-term security improvements really show up.
 
 ## Keep reading
 
-- [Laravel Blob installation](../4-storage-blob-laravel/1-installation.md)
-- [Laravel Blob quickstart](../4-storage-blob-laravel/2-quickstart.md)
-- [The Modern Laravel Blob Stack After matthewbdaly/laravel-azure-storage](../9-blog/3-laravel-azure-blob-storage-after-matthewbdaly.md)
+- [Laravel Blob installation](./1-installation.md)
+- [Laravel Blob quickstart](./2-quickstart.md)
+- [The Modern Laravel Blob Stack After matthewbdaly/laravel-azure-storage](/blog/laravel-azure-blob-storage-after-matthewbdaly-laravel-azure-storage)

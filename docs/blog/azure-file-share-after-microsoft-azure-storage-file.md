@@ -1,6 +1,5 @@
 ---
-sidebar_position: 5
-slug: /blog/azure-file-share-after-microsoft-azure-storage-file
+slug: azure-file-share-after-microsoft-azure-storage-file
 title: What to Use After microsoft/azure-storage-file
 description: How to choose between azure-oss/storage-file-share and a mounted Azure File Share.
 ---
@@ -57,4 +56,4 @@ That trust is worth more than a smoother headline.
 
 ## Where to go next
 
-If you are evaluating the SDK path seriously, start with [Migrate from microsoft/azure-storage-file](../8-migration-guides/6-microsoft-azure-storage-file.md).
+If you are evaluating the SDK path seriously, start with [Migrate from microsoft/azure-storage-file](/storage-file-share/migrate-from-microsoft-azure-storage-file).

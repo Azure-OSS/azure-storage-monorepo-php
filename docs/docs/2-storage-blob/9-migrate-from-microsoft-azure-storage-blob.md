@@ -1,6 +1,6 @@
 ---
-sidebar_position: 1
-slug: /migration-guides/microsoft-azure-storage-blob
+sidebar_position: 9
+slug: /storage-blob/migrate-from-microsoft-azure-storage-blob
 title: Migrate from microsoft/azure-storage-blob
 description: A practical path from BlobRestProxy to the modern azure-oss Blob client model.
 ---
@@ -121,7 +121,7 @@ Those are good upgrades. They are just easier to reason about after the client m
 
 ## Keep reading
 
-- [Blob overview](../2-storage-blob/0-overview.md)
-- [Blob installation](../2-storage-blob/1-installation.md)
-- [Blob quickstart](../2-storage-blob/2-quickstart.md)
-- [What to Use After microsoft/azure-storage-blob](../9-blog/1-what-to-use-after-microsoft-azure-storage-blob.md)
+- [Blob overview](./0-overview.md)
+- [Blob installation](./1-installation.md)
+- [Blob quickstart](./2-quickstart.md)
+- [What to Use After microsoft/azure-storage-blob](/blog/what-to-use-after-microsoft-azure-storage-blob)

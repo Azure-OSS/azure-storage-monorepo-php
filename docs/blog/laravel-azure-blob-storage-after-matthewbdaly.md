@@ -1,6 +1,5 @@
 ---
-sidebar_position: 3
-slug: /blog/laravel-azure-blob-storage-after-matthewbdaly-laravel-azure-storage
+slug: laravel-azure-blob-storage-after-matthewbdaly-laravel-azure-storage
 title: The Modern Laravel Blob Stack After matthewbdaly/laravel-azure-storage
 description: What Laravel teams should use for Azure Blob Storage now, and why the upgrade is bigger than a disk config rename.
 ---
@@ -77,4 +76,4 @@ That pacing matters. A good migration is not the one with the biggest ambition. 
 
 ## Where to go next
 
-For the exact config mapping and rollout checklist, read [Migrate from matthewbdaly/laravel-azure-storage](../8-migration-guides/3-matthewbdaly-laravel-azure-storage.md).
+For the exact config mapping and rollout checklist, read [Migrate from matthewbdaly/laravel-azure-storage](/storage-blob-laravel/migrate-from-matthewbdaly-laravel-azure-storage).

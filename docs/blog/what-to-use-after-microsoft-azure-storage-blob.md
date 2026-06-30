@@ -1,6 +1,5 @@
 ---
-sidebar_position: 1
-slug: /blog/what-to-use-after-microsoft-azure-storage-blob
+slug: what-to-use-after-microsoft-azure-storage-blob
 title: What to Use After microsoft/azure-storage-blob
 description: The practical replacement for the retired Microsoft Azure Blob SDK in modern PHP projects.
 ---
@@ -72,4 +71,4 @@ That last point matters. You do not need to adopt Microsoft Entra ID, redesign y
 
 ## Where to go next
 
-If you want the actual code-and-config path, read [Migrate from microsoft/azure-storage-blob](../8-migration-guides/1-microsoft-azure-storage-blob.md).
+If you want the actual code-and-config path, read [Migrate from microsoft/azure-storage-blob](/storage-blob/migrate-from-microsoft-azure-storage-blob).

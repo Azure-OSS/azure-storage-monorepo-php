@@ -1,6 +1,5 @@
 ---
-sidebar_position: 4
-slug: /blog/modern-azure-queue-for-laravel
+slug: modern-azure-queue-for-laravel
 title: A Modern Azure Queue Driver for Laravel
 description: Why Laravel teams should move from squigg/azure-queue-laravel to azure-oss/storage-queue-laravel.
 ---
@@ -58,4 +57,4 @@ The docs can help with the rename work. Your staging environment should validate
 
 ## Where to go next
 
-For the exact field mapping and worker-focused checklist, go to [Migrate from squigg/azure-queue-laravel](../8-migration-guides/5-squigg-azure-queue-laravel.md).
+For the exact field mapping and worker-focused checklist, go to [Migrate from squigg/azure-queue-laravel](/storage-queue-laravel/migrate-from-squigg-azure-queue-laravel).

@@ -1,6 +1,5 @@
 ---
-sidebar_position: 2
-slug: /blog/migrating-from-league-flysystem-azure-blob-storage
+slug: migrating-from-league-flysystem-azure-blob-storage
 title: Leaving league/flysystem-azure-blob-storage Behind
 description: Why this Flysystem migration is usually straightforward and still worth doing.
 ---
@@ -65,4 +64,4 @@ If your Blob adapter is the bridge between application code and storage, it is a
 
 ## Where to go next
 
-For the concrete namespace, constructor, and URL behavior changes, start with [Migrate from league/flysystem-azure-blob-storage](../8-migration-guides/2-league-flysystem-azure-blob-storage.md).
+For the concrete namespace, constructor, and URL behavior changes, start with [Migrate from league/flysystem-azure-blob-storage](/storage-blob-flysystem/migrate-from-league-flysystem-azure-blob-storage).
